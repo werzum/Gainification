@@ -1,6 +1,7 @@
 import {AppBar, Typography, Toolbar} from '@material-ui/core';
 import React from 'react';
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/styles';
+import DatePicker from "./datePicker.js";
 
 const useStyles = makeStyles(theme => 
     ({  root: {    flexGrow: 1  }, 
@@ -10,7 +11,7 @@ const useStyles = makeStyles(theme =>
         toolbarMargin: {minHeight:56},
      }))
 
-function CustomAppBar(){
+function CustomAppBar(props){
     const classes = useStyles()
     return(
         <React.Fragment>
@@ -24,6 +25,8 @@ function CustomAppBar(){
                     <Typography variant="caption" className={classes.caption}>
                        {"    "} Taste the Gainbow
                     </Typography>
+                    &nbsp;
+                    <DatePicker selectedDay={props.selectedDay} dateTime={props.dateTime} nextDay={props.nextDay} previousDay={props.previousDay}/>
                 </Toolbar>
             </AppBar>
             <div className={classes.toolbarMargin} />
