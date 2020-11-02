@@ -5,28 +5,38 @@ import {Grid} from "@material-ui/core";
 import FetchDishes from "./FetchDishes";
 import SortableTable from "./Components/table.js"
 
+//TODO
+//dark mode?
+//service worker
+//testing on mobile
+//time selection sometimes not greyed out? -> when going back to first day?
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.nextDay = this.nextDay.bind(this);
     this.previousDay = this.previousDay.bind(this);
     this.computeTopCards = this.computeTopCards.bind(this);
+    this.callAPI = this.callAPI.bind(this);
+    this.selectLocation = this.selectLocation.bind(this);
+    
     this.state = {
       weekDays:[{day:"",dateTime:"",mealList:[
         {name:"",kcal:0,carbs:0,protein:0,fat:0,price:0,category:"",KcalpE:0,PpE:0,FpE:0,CpE:0,gainfactor:0}
       ]}],
       //4 empty ones to replace them later
       topCards: [{},{},{},{}],
-      selectedDay:0
+      selectedDay:0,
+      selectedLocation:"academica"
     };
   }
 
   //call the node server to get the list of dishes
-  callAPI() {
+  callAPI(selectedLocation) {
     
     let todaysData = []
     
-    FetchDishes().then(res=>res.json()).then(res =>{
+    FetchDishes(selectedLocation).then(res=>res.json()).then(res =>{
 
       for(let i=1;i<res.length;i++){
         let dayData = {dateTime:"",mealList:[]};
@@ -50,7 +60,6 @@ class App extends Component {
   computeTopCards(selectedDay){
     let cards = this.state.weekDays[selectedDay].mealList;
     let newTopCards = this.state.topCards;
-    console.log(newTopCards);
     //for each entry of todays list, check whether it is higher than the rest and belongs to the topcards. Break if found
     for (const entry of cards){
       if(cards.every((value => (value.PpE <= entry.PpE)),entry)){
@@ -72,13 +81,12 @@ class App extends Component {
         newTopCards[3] = entry;
         continue;
     }};
-    console.log(newTopCards);
     this.setState({topCards:newTopCards});
   }
 
   //fetch the JSON data when component is mounted
   componentDidMount(){
-    this.callAPI()
+    this.callAPI(this.state.selectedLocation);
   }
 
   //pass this to datePicker component to change selectedDay
@@ -95,22 +103,28 @@ class App extends Component {
     this.setState({selectedDay:newSelectedDay});
     this.computeTopCards(this.state.selectedDay);
   }
+
+  //pass this to the locationPicker component to change the selected day and call the API accordingly
+  selectLocation(selectedLocation){
+    this.callAPI(selectedLocation)
+  }
+
   render(){
     return(
         <div className="App">
-          <CustomAppBar selectedDay={this.state.selectedDay} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay}/>
+          <CustomAppBar selectedDay={this.state.selectedDay} selectedLocation={this.state.selectedLocation} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay} selectLocation={this.selectLocation} />
             <Grid container={true} spacing={2} style={{margin:5}}>
-              <Grid item={true} xs={6} sm={6} md={3} key={"Most Protein/€"}>
-                <HeadCardPpE {...this.state.topCards[0]}/>
+              <Grid item={true} xs={6} sm={6} md={3} key={"PpE"} >
+                <HeadCardPpE {...this.state.topCards[0]} subheadername={"Most Protein/€"}/>
               </Grid>
-              <Grid item={true} xs={6} sm={6} md={3} key={"Most Protein"}>
-                <HeadCardPpE {...this.state.topCards[1]}/>
+              <Grid item={true} xs={6} sm={6} md={3} key={"protein"} >
+                <HeadCardPpE {...this.state.topCards[1]} subheadername={"Most Protein"}/>
               </Grid>
-              <Grid item={true} xs={6} sm={6} md={3} key={"Most Kcal/€"}>
-                <HeadCardPpE {...this.state.topCards[2]}/>
+              <Grid item={true} xs={6} sm={6} md={3} key={"KcalE"} >
+                <HeadCardPpE {...this.state.topCards[2]} subheadername={"Most Kcal/€"}/>
               </Grid>
-              <Grid item={true} xs={6} sm={6} md={3} key={"Most Kcal"}>
-                <HeadCardPpE {...this.state.topCards[3]}/>
+              <Grid item={true} xs={6} sm={6} md={3} key={"kcal"} >
+                <HeadCardPpE {...this.state.topCards[3]} subheadername={"Most Kcal"}/>
               </Grid>
 
             </Grid>

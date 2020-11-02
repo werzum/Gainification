@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme =>
         toolbarMargin: {minHeight:56},
      }))
 
-function DatePicker(props){
+export default function DatePicker(props){
     const classes = useStyles()
 
     return(
@@ -28,5 +28,3 @@ function DatePicker(props){
         </React.Fragment>
     )
 }
-
-export default DatePicker;

@@ -24,7 +24,7 @@ function HeadCardPpE(props) {
         raised={isHovering} className={classes.card}
         > 
 
-        <CardHeader title={props.name} subheader={props.key}/>
+        <CardHeader title={props.name} subheader={props.subheadername}/>
         <CardContent >
             <p>Protein per Euro: {props.PpE} g/€</p>
             <p>Absolute protein: {props.protein} g</p>

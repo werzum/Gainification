@@ -2,6 +2,7 @@ import {AppBar, Typography, Toolbar} from '@material-ui/core';
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import DatePicker from "./datePicker.js";
+import LocationPicker from "./locationPicker.js";
 
 const useStyles = makeStyles(theme => 
     ({  root: {    flexGrow: 1  }, 
@@ -26,6 +27,7 @@ function CustomAppBar(props){
                        {"    "} Taste the Gainbow
                     </Typography>
                     &nbsp;
+                    <LocationPicker selectedLocation={props.selectedLocation} selectLocation={props.selectLocation}/>
                     <DatePicker selectedDay={props.selectedDay} dateTime={props.dateTime} nextDay={props.nextDay} previousDay={props.previousDay}/>
                 </Toolbar>
             </AppBar>
