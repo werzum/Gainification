@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
     this.nextDay = this.nextDay.bind(this);
     this.previousDay = this.previousDay.bind(this);
+    this.computeTopCards = this.computeTopCards.bind(this);
     this.state = {
       weekDays:[{day:"",dateTime:"",mealList:[
         {name:"",kcal:0,carbs:0,protein:0,fat:0,price:0,category:"",KcalpE:0,PpE:0,FpE:0,CpE:0,gainfactor:0}
@@ -48,30 +49,31 @@ class App extends Component {
   //compute the prominent top cards
   computeTopCards(selectedDay){
     let cards = this.state.weekDays[selectedDay].mealList;
-    let topCards = this.state.topCards;
+    let newTopCards = this.state.topCards;
+    console.log(newTopCards);
     //for each entry of todays list, check whether it is higher than the rest and belongs to the topcards. Break if found
     for (const entry of cards){
       if(cards.every((value => (value.PpE <= entry.PpE)),entry)){
-        topCards[0] = entry;
+        newTopCards[0] = entry;
         continue;
     }};
     for (const entry of cards){
       if(cards.every((value => (value.protein <= entry.protein)),entry)){
-        topCards[1] = entry;
+        newTopCards[1] = entry;
         continue;
     }};
     for (const entry of cards){
       if(cards.every((value => (value.KcalpE <= entry.KcalpE)),entry)){
-        topCards[2] = entry;
+        newTopCards[2] = entry;
         continue;
     }};
     for (const entry of cards){
       if(cards.every((value => (value.kcal <= entry.kcal)),entry)){
-        topCards[3] = entry;
+        newTopCards[3] = entry;
         continue;
     }};
-
-    this.setState({topCards:topCards});
+    console.log(newTopCards);
+    this.setState({topCards:newTopCards});
   }
 
   //fetch the JSON data when component is mounted
@@ -85,25 +87,32 @@ class App extends Component {
       newSelectedDay++;
     }
     this.setState({selectedDay:newSelectedDay})
+    this.computeTopCards(this.state.selectedDay);
   }
   previousDay(newSelectedDay){
     if (newSelectedDay>1) {
       newSelectedDay--;}
-    this.setState({selectedDay:newSelectedDay})
+    this.setState({selectedDay:newSelectedDay});
+    this.computeTopCards(this.state.selectedDay);
   }
   render(){
     return(
         <div className="App">
           <CustomAppBar selectedDay={this.state.selectedDay} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay}/>
             <Grid container={true} spacing={2} style={{margin:5}}>
-              {
-                this.state.topCards.map((prop)=>{
-                  return(
-                    <Grid item={true} xs={6} sm={6} md={3}>
-                      <HeadCardPpE {...prop} key={prop.name}/>
-                    </Grid>
-                  )})
-              }
+              <Grid item={true} xs={6} sm={6} md={3} key={"Most Protein/€"}>
+                <HeadCardPpE {...this.state.topCards[0]}/>
+              </Grid>
+              <Grid item={true} xs={6} sm={6} md={3} key={"Most Protein"}>
+                <HeadCardPpE {...this.state.topCards[1]}/>
+              </Grid>
+              <Grid item={true} xs={6} sm={6} md={3} key={"Most Kcal/€"}>
+                <HeadCardPpE {...this.state.topCards[2]}/>
+              </Grid>
+              <Grid item={true} xs={6} sm={6} md={3} key={"Most Kcal"}>
+                <HeadCardPpE {...this.state.topCards[3]}/>
+              </Grid>
+
             </Grid>
             <SortableTable prop={this.state.weekDays[this.state.selectedDay].mealList}/>
         </div>

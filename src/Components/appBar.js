@@ -6,7 +6,7 @@ import DatePicker from "./datePicker.js";
 const useStyles = makeStyles(theme => 
     ({  root: {    flexGrow: 1  }, 
         flex: {    flex: 1  },
-        title:{letterSpacing:4, fontWeight:800},
+        title:{letterSpacing:3, fontWeight:800},
         caption: {alignContent: "end", flex:1, letterSpacing:9,fontWeight:700},
         toolbarMargin: {minHeight:56},
      }))
@@ -18,7 +18,7 @@ function CustomAppBar(props){
             <AppBar position="fixed">
                 <Toolbar>
                     <Typography variant="h5" className={classes.title}>
-                        Mensaknecht 
+                        Gainification 
                     </Typography>
                     &nbsp;
                     &nbsp;

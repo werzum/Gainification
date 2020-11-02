@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Card, Typography, CardHeader, CardContent, CardActions, Collapse, IconButton} from "@material-ui/core";
+import {Card, CardHeader, CardContent, CardActions, Collapse, IconButton} from "@material-ui/core";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown"
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp"
 import { makeStyles } from '@material-ui/styles'
@@ -24,7 +24,7 @@ function HeadCardPpE(props) {
         raised={isHovering} className={classes.card}
         > 
 
-        <CardHeader title={props.name} subheader={"Most protein/€"}/>
+        <CardHeader title={props.name} subheader={props.key}/>
         <CardContent >
             <p>Protein per Euro: {props.PpE} g/€</p>
             <p>Absolute protein: {props.protein} g</p>
