@@ -9,7 +9,7 @@ import SortableTable from "./Components/table.js"
 //dark mode?
 //service worker
 //testing on mobile
-//time selection sometimes not greyed out? -> when going back to first day?
+//handle empty speisepläne for location selection
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +35,6 @@ class App extends Component {
   callAPI(selectedLocation) {
     
     let todaysData = []
-    
     FetchDishes(selectedLocation).then(res=>res.json()).then(res =>{
 
       for(let i=1;i<res.length;i++){
@@ -48,11 +47,10 @@ class App extends Component {
         }
         todaysData.push(dayData);
       }
-
       this.setState({ weekDays: todaysData})
-      
       //and set the topCards
       this.computeTopCards(this.state.selectedDay);
+      this.setState({selectedLocation:selectedLocation});
       })
   }
 
@@ -126,7 +124,6 @@ class App extends Component {
               <Grid item={true} xs={6} sm={6} md={3} key={"kcal"} >
                 <HeadCardPpE {...this.state.topCards[3]} subheadername={"Most Kcal"}/>
               </Grid>
-
             </Grid>
             <SortableTable prop={this.state.weekDays[this.state.selectedDay].mealList}/>
         </div>
