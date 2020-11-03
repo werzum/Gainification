@@ -4,6 +4,7 @@ import CustomAppBar from "./Components/appBar.js"
 import FetchDishes from "./FetchDishes";
 import SortableTable from "./Components/table.js"
 import {Grid,Snackbar} from "@material-ui/core";
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 //TODO
 //dark mode?
@@ -20,6 +21,7 @@ class App extends Component {
     this.computeTopCards = this.computeTopCards.bind(this);
     this.callAPI = this.callAPI.bind(this);
     this.selectLocation = this.selectLocation.bind(this);
+    this.toggleDarkMode = this.toggleDarkMode.bind(this);
     
     this.state = {
       weekDays:[{day:"",dateTime:"",mealList:[
@@ -28,7 +30,8 @@ class App extends Component {
       topCards: [{},{},{},{}],
       selectedDay:0,
       selectedLocation:"academica",
-      openSnackbar: false
+      openSnackbar: false,
+      darkMode: false
     };
   }
 
@@ -112,10 +115,22 @@ class App extends Component {
     this.callAPI(selectedLocation)
   }
 
+  toggleDarkMode(){
+    let darkMode = this.state.darkMode;
+    this.setState({darkMode:!darkMode})
+  }
+
   render(){
+    const theme = createMuiTheme({
+      palette: {
+        type: this.state.darkMode? "dark" : "light"
+      }
+    });
+
     return(
+      <ThemeProvider theme={theme}>
         <div className="App">
-          <CustomAppBar selectedDay={this.state.selectedDay} selectedLocation={this.state.selectedLocation} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay} selectLocation={this.selectLocation} />
+          <CustomAppBar darkMode={this.state.darkMode} toggleDarkMode={this.toggleDarkMode} selectedDay={this.state.selectedDay} selectedLocation={this.state.selectedLocation} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay} selectLocation={this.selectLocation} />
             <Grid container={true} spacing={2} style={{margin:5}}>
               <Grid item={true} xs={6} sm={6} md={3} key={"PpE"} >
                 <HeadCardPpE {...this.state.topCards[0]} subheadername={"Most Protein/€"}/>
@@ -138,6 +153,7 @@ class App extends Component {
               autoHideDuration={2000}
             />
         </div>
+      </ThemeProvider>
     )
   }
 }

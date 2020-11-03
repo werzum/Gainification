@@ -31,7 +31,7 @@ function HeadCardPpE(props) {
             <p>Kcal per Euro: {props.KcalpE} kcal/€</p>
             <p>Absolute Kcal: {props.kcal} kcal</p>
         </CardContent>
-        <CardActions>
+        <CardActions >
             <IconButton className={classes.expand} onClick={toggleExpand}>
                 {expanded? <ArrowDropUp expanded={expanded}/> : <ArrowDropDown expanded={expanded}/>}
             </IconButton>

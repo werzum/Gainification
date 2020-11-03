@@ -3,6 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import DatePicker from "./datePicker.js";
 import LocationPicker from "./locationPicker.js";
+import CustomDrawer from "./drawer.js";
 
 const useStyles = makeStyles(theme => 
     ({  root: {    flexGrow: 1  }, 
@@ -12,12 +13,13 @@ const useStyles = makeStyles(theme =>
         toolbarMargin: {minHeight:56},
      }))
 
-function CustomAppBar(props){
+     export default function CustomAppBar(props){
     const classes = useStyles()
     return(
         <React.Fragment>
             <AppBar position="fixed">
                 <Toolbar>
+                    <CustomDrawer darkMode={props.darkMode} toggleDarkMode={props.toggleDarkMode}/>
                     <Typography variant="h5" className={classes.title}>
                         Gainification 
                     </Typography>
@@ -35,5 +37,3 @@ function CustomAppBar(props){
         </React.Fragment>
     )
 }
-
-export default CustomAppBar;
