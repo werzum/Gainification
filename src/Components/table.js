@@ -52,30 +52,32 @@ export default function SortableTable(props){
 
     return (
         <Paper key={rows[0].name}>
-            <Table dense>
+            <Table dense="true">
                 <TableHead>
-                {columns.map((column,index)=>{
-                    return(
-                        <TableCell key={column.name} align={column.numeric? "right" : "inherit"}>
-                            <TableSortLabel active={column.active} direction={column.order} onClick={onSortClick(index)}>
-                                {column.name}
-                            </TableSortLabel>
-                        </TableCell>
-                        )
-                    })
-                }
+                    <TableRow>
+                        {columns.map((column,index)=>{
+                            return(
+                                <TableCell key={column.name} align={column.numeric? "right" : "inherit"}>
+                                    <TableSortLabel active={column.active} direction={column.order} onClick={onSortClick(index)}>
+                                        {column.name}
+                                    </TableSortLabel>
+                                </TableCell>
+                                )
+                            })
+                        }
+                    </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row)=>{
+                    {rows.map((row,index)=>{
                         return(
-                            <TableRow key={row.id}>
-                                <TableCell component="th" scope="row">{row.name}</TableCell>
-                                <TableCell align="center">{row.category}</TableCell>
-                                <TableCell align="right">{row.price}</TableCell>
-                                <TableCell align="right">{row.kcal}</TableCell>
-                                <TableCell align="right">{row.protein}</TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
+                            <TableRow key={index}>
+                                <TableCell key={index.toString()+row.uniqueID+"1"} component="th" scope="row">{row.name}</TableCell>
+                                <TableCell key={index.toString()+row.uniqueID+"2"} align="left">{row.category}</TableCell>
+                                <TableCell key={index.toString()+row.uniqueID+"3"} align="right">{row.price}</TableCell>
+                                <TableCell key={index.toString()+row.uniqueID+"4"} align="right">{row.kcal}</TableCell>
+                                <TableCell key={index.toString()+row.uniqueID+"5"} align="right">{row.protein}</TableCell>
+                                <TableCell key={index.toString()+row.uniqueID+"6"} align="right">{row.fat}</TableCell>
+                                <TableCell key={index.toString()+row.uniqueID+"7"} align="right">{row.carbs}</TableCell>
                             </TableRow>
                     )})}
                 </TableBody>

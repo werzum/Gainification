@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import HeadCardPpE from "./Components/headerCard.js"
 import CustomAppBar from "./Components/appBar.js"
-import {Grid} from "@material-ui/core";
 import FetchDishes from "./FetchDishes";
 import SortableTable from "./Components/table.js"
+import {Grid,Snackbar} from "@material-ui/core";
 
 //TODO
 //dark mode?
 //service worker
 //testing on mobile
-//handle empty speisepläne for location selection
+//Improve created strings since they stink. Preis ohne Pfand and proper names need to be fixed
+//improve UI
 
 class App extends Component {
   constructor(props) {
@@ -24,10 +25,10 @@ class App extends Component {
       weekDays:[{day:"",dateTime:"",mealList:[
         {name:"",kcal:0,carbs:0,protein:0,fat:0,price:0,category:"",KcalpE:0,PpE:0,FpE:0,CpE:0,gainfactor:0}
       ]}],
-      //4 empty ones to replace them later
       topCards: [{},{},{},{}],
       selectedDay:0,
-      selectedLocation:"academica"
+      selectedLocation:"academica",
+      openSnackbar: false
     };
   }
 
@@ -36,6 +37,10 @@ class App extends Component {
     
     let todaysData = []
     FetchDishes(selectedLocation).then(res=>res.json()).then(res =>{
+      if(res.message===404){
+        this.setState({openSnackbar:true});
+        return;
+      }
 
       for(let i=1;i<res.length;i++){
         let dayData = {dateTime:"",mealList:[]};
@@ -96,7 +101,7 @@ class App extends Component {
     this.computeTopCards(this.state.selectedDay);
   }
   previousDay(newSelectedDay){
-    if (newSelectedDay>1) {
+    if (newSelectedDay>0) {
       newSelectedDay--;}
     this.setState({selectedDay:newSelectedDay});
     this.computeTopCards(this.state.selectedDay);
@@ -126,6 +131,12 @@ class App extends Component {
               </Grid>
             </Grid>
             <SortableTable prop={this.state.weekDays[this.state.selectedDay].mealList}/>
+            <Snackbar
+              message={"No meal plan provided"}
+              open={this.state.openSnackbar}
+              onClose={() => this.setState({ openSnackbar: false })}
+              autoHideDuration={2000}
+            />
         </div>
     )
   }

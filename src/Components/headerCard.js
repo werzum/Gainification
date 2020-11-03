@@ -12,7 +12,7 @@ function HeadCardPpE(props) {
     const classes = useStyles()
     //hooks for hovering effect and expanding cards
     const [isHovering, setIsHovering] = useState(0);
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(0);
 
     const toggleExpand = () => {
         setExpanded(!expanded);
@@ -21,7 +21,7 @@ function HeadCardPpE(props) {
     return (
         <Card onMouseOver={() => setIsHovering(true)}
         onMouseOut={() => setIsHovering(false)}
-        raised={isHovering} className={classes.card}
+        raised={Boolean(isHovering)} className={classes.card}
         > 
 
         <CardHeader title={props.name} subheader={props.subheadername}/>
@@ -36,7 +36,7 @@ function HeadCardPpE(props) {
                 {expanded? <ArrowDropUp expanded={expanded}/> : <ArrowDropDown expanded={expanded}/>}
             </IconButton>
         </CardActions>
-        <Collapse in={expanded}>
+        <Collapse in={Boolean(expanded)}>
             <CardContent>
                 <p>Price: {props.price}€</p>
                 <p>Gainfactor: {props.gainfactor}</p>

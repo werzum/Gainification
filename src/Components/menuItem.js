@@ -9,7 +9,7 @@ function MenuItem(props) {
         onMouseOut={() => setIsHovering(false)}
         raised={isHovering.toString()}
         spacing={5}
-        dense>
+        dense="true">
             <div>
             <Typography variant="overline">{props.name} - {props.price} €</Typography>
             <Typography variant="subtitle1">Protein per Euro: {props.PpE} g/€</Typography>
