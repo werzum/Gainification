@@ -73,7 +73,7 @@ export default function SortableTable(props){
                             <TableRow key={index}>
                                 <TableCell key={index.toString()+row.uniqueID+"1"} component="th" scope="row">{row.name}</TableCell>
                                 <TableCell key={index.toString()+row.uniqueID+"2"} align="left">{row.category}</TableCell>
-                                <TableCell key={index.toString()+row.uniqueID+"3"} align="right">{row.price}</TableCell>
+                                <TableCell key={index.toString()+row.uniqueID+"3"} align="right">{row.price+"0 €"}</TableCell>
                                 <TableCell key={index.toString()+row.uniqueID+"4"} align="right">{row.kcal}</TableCell>
                                 <TableCell key={index.toString()+row.uniqueID+"5"} align="right">{row.protein}</TableCell>
                                 <TableCell key={index.toString()+row.uniqueID+"6"} align="right">{row.fat}</TableCell>
