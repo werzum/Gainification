@@ -6,7 +6,7 @@ import LocationPicker from "./locationPicker.js";
 import CustomDrawer from "./drawer.js";
 
 const useStyles = makeStyles(theme => 
-    ({  root: {    flexGrow: 1  }, 
+    ({  root: {    flexGrow: 1, color: "inherit"}, 
         flex: {    flex: 1  },
         title:{letterSpacing:3, fontWeight:800},
         caption: {alignContent: "end", flex:1, letterSpacing:9,fontWeight:700},
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme =>
     const classes = useStyles()
     return(
         <React.Fragment>
-            <AppBar position="fixed">
+            <AppBar position="fixed" className={classes.root}>
                 <Toolbar>
                     <CustomDrawer darkMode={props.darkMode} toggleDarkMode={props.toggleDarkMode}/>
                     <Typography variant="h5" className={classes.title}>

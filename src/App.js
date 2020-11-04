@@ -3,11 +3,10 @@ import HeadCardPpE from "./Components/headerCard.js"
 import CustomAppBar from "./Components/appBar.js"
 import FetchDishes from "./FetchDishes";
 import SortableTable from "./Components/table.js"
-import {Grid,Snackbar} from "@material-ui/core";
+import {Grid,Snackbar,CssBaseline } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 //TODO
-//dark mode?
 //service worker
 //testing on mobile
 //Improve created strings since they stink. Preis ohne Pfand and proper names need to be fixed
@@ -129,6 +128,7 @@ class App extends Component {
 
     return(
       <ThemeProvider theme={theme}>
+        <CssBaseline />
         <div className="App">
           <CustomAppBar darkMode={this.state.darkMode} toggleDarkMode={this.toggleDarkMode} selectedDay={this.state.selectedDay} selectedLocation={this.state.selectedLocation} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay} selectLocation={this.selectLocation} />
             <Grid container={true} spacing={2} style={{margin:5}}>

@@ -3,11 +3,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles(theme => 
-    ({  root: {    flexGrow: 1  }, 
-        flex: {    flex: 1  },
-        title:{letterSpacing:4, fontWeight:800},
-        caption: {alignContent: "end", flex:1, letterSpacing:9,fontWeight:700},
-        toolbarMargin: {minHeight:56},
+    ({  root: {    color: "inherit"}
      }))
 
 export default function LocationPicker(props){
@@ -20,7 +16,7 @@ export default function LocationPicker(props){
                 key={props.selectedLocation}
                 value={props.selectedLocation}
                 onChange={(event)=>props.selectLocation(event.target.value)}
-                label="Selected Mensa">
+                label="Selected Mensa" className={classes.root}>
                     <MenuItem value={"academica"}> Mensa Academica </MenuItem>
                     <MenuItem value={"ahornstrasse"}> Mensa Ahornstraße </MenuItem>
                     <MenuItem value={"bayernallee"}> Mensa Bayernalle </MenuItem>

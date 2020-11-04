@@ -3,6 +3,9 @@ import {Card, CardHeader, CardContent, CardActions, Collapse, IconButton} from "
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown"
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp"
 import { makeStyles } from '@material-ui/styles'
+import { BarChart, Bar, Cell, XAxis, YAxis, ResponsiveContainer, Tooltip} from 'recharts';
+  
+
 
 const useStyles = makeStyles(theme => ({  card: {height: "100%"},
     expand: {    marginLeft: 'auto'  } }));
@@ -17,6 +20,19 @@ function HeadCardPpE(props) {
     const toggleExpand = () => {
         setExpanded(!expanded);
     }
+
+    //the data and setup for the charts
+    const fat = (props.fat)/22;
+    const kcal = (props.kcal)/666;
+    const protein = props.protein/24;
+    const carbs = props.carbs/88;
+    const colors=["#8884d8","#8884d8","#8884d8","#d0ed57"]
+    const data = [
+        {name: "Kcal", val: kcal, "fill": "#8884d8"},
+        {name: "Protein", val: protein, "fill": "#83a6ed"},
+        {name: "Fat", val: fat, "fill": "#8dd1e1"},
+        {name: "Carbs", val: carbs, "fill": "#d0ed57"}
+    ]
   
     return (
         <Card onMouseOver={() => setIsHovering(true)}
@@ -36,16 +52,25 @@ function HeadCardPpE(props) {
                 {expanded? <ArrowDropUp expanded={expanded}/> : <ArrowDropDown expanded={expanded}/>}
             </IconButton>
         </CardActions>
+        <CardHeader subheader={"Percentage of recommended intake per meal"}/>
         <Collapse in={Boolean(expanded)}>
             <CardContent>
-                <p>Price: {props.price}€</p>
-                <p>Gainfactor: {props.gainfactor}</p>
-                <p>Absolute Carbs: {props.carbs}g</p>
-                <p>Absolute Fat: {props.carbs}g</p>
+            <ResponsiveContainer width={"95%"} height={250}>
+                <BarChart data={data}>
+                        <YAxis ticks={[0.5,1,1.5,2]} interval={0} />
+                        <XAxis dataKey="name"/>
+                        <Tooltip/>
+                        <Bar dataKey="val"/>{
+                            data.map((entry, index)=>
+                            <Cell fill={colors[index]}/>)
+                        }
+                    </BarChart>
+            </ResponsiveContainer>
+
             </CardContent>
         </Collapse> 
     </Card>
     )
   }
-
+  
 export default HeadCardPpE;

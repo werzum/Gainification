@@ -1,10 +1,9 @@
-import {Drawer, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
+import {Drawer, List, Card, CardContent} from '@material-ui/core';
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/styles';
-import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import DarkToggle from "./toggle.js"
+import DarkToggle from "./toggle.js";
 
 const useStyles = makeStyles({
     list: {
@@ -12,7 +11,13 @@ const useStyles = makeStyles({
     },
     fullList: {
       width: 'auto',
+      display: "flex",
+      flexFlow: "column nowrap"
     },
+    card:{
+      width:"auto",
+      marginTop: "auto"
+    }
   });
 
 export default function CustomDrawer(props){
@@ -26,14 +31,20 @@ export default function CustomDrawer(props){
     const drawer = (
       <React.Fragment>
           <List>
-            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>{index % 2 === 0 ? <ArrowDropUp /> : <ArrowDropUp />}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
-            ))}
+            ))} */}
             <DarkToggle darkMode={props.darkMode} toggleDarkMode={props.toggleDarkMode}/>
           </List>
+          <Card className={classes.card}>
+            <CardContent>
+                <pre>Made with <span role="img" aria-label="heart">❤️</span> by Carl Orge Retzlaff. </pre>
+                <pre>Check out this project on <a href="https://github.com/werzum/mensaKnecht2.0">GitHub</a></pre>
+            </CardContent>
+          </Card>
         </React.Fragment>
     );
 
