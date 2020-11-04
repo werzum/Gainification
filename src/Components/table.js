@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,10 +12,8 @@ const comparator = (prop, desc = true) => (a, b) => {  const order = desc ? -1 :
     if (a[prop] > b[prop]) {    return 1 * order;  }
     return 0 * order; };
 
-const useStyles = makeStyles(theme => ({  root: { textAlign: 'center' } }));
 
 export default function SortableTable(props){
-    const classes = useStyles(); 
     //only compare by absolute value since the name comparator doesnt like spaces and /,€ -> fix this maybe? 
     const [columns, setColumns] = useState([{name:"Name", active: false},
                                             {name:"Category", active:false},

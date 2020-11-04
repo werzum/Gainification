@@ -131,7 +131,7 @@ class App extends Component {
         <CssBaseline />
         <div className="App">
           <CustomAppBar darkMode={this.state.darkMode} toggleDarkMode={this.toggleDarkMode} selectedDay={this.state.selectedDay} selectedLocation={this.state.selectedLocation} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay} selectLocation={this.selectLocation} />
-            <Grid container={true} spacing={2} style={{margin:5}}>
+            <Grid container={true} spacing={2} style={{margin:5}} style={{width:"100%"}} >
               <Grid item={true} xs={6} sm={6} md={3} key={"PpE"} >
                 <HeadCardPpE {...this.state.topCards[0]} subheadername={"Most Protein per Euro"} avatar={"P/€"}/>
               </Grid>

@@ -3,7 +3,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles'
 
 const useStyles = makeStyles(theme => 
-    ({  root: {    color: "inherit"}
+    ({  root: {    color: "white",
+    '&:before': {
+        borderColor: "white",
+    },
+    '&:after': {
+        borderColor: "white",
+    }}
      }))
 
 export default function LocationPicker(props){
@@ -11,7 +17,6 @@ export default function LocationPicker(props){
 
     return(
         <React.Fragment>
-            <FormControl variant="outlined">
                 <Select
                 key={props.selectedLocation}
                 value={props.selectedLocation}
@@ -27,7 +32,6 @@ export default function LocationPicker(props){
                     <MenuItem value={"bistro"}> Bistro Templergraben </MenuItem>
                     <MenuItem value={"vita"}> Mensa Vita </MenuItem>
                 </Select>
-            </FormControl>
         </React.Fragment>
     )
 }
