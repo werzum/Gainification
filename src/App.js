@@ -29,7 +29,7 @@ class App extends Component {
       selectedDay:0,
       selectedLocation:"academica",
       openSnackbar: false,
-      darkMode: false
+      darkMode: true
     };
   }
 
