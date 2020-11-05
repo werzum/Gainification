@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -18,14 +19,20 @@ const comparator = (prop, desc = true) => (a, b) => {  const order = desc ? -1 :
 export default function SortableTable(props){
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
-    //only compare by absolute value since the name comparator doesnt like spaces and /,€ -> fix this maybe? 
-    const [columns, setColumns] = useState([{name:"Name", active: false},
-                                            {name:"Category", active:false},
+
+    //deactivate category on mobile
+    let [columns, setColumns] = useState([{name:"Name", active: false},
+                                            !isSmall&&{name:"Category", active:false},
                                             {name:"Price", active:false, numeric:true},
                                             {name:"Kcal", active:false, numeric:true},
                                             {name:"Protein(g)", active:false, numeric:true},
                                             {name:"Fat(g)", active:false, numeric:true},
                                             {name:"Carbs(g)", active:false, numeric:true}])
+
+    if(isSmall){
+        columns=columns.filter((elm)=>elm.name!=="Category");
+    }
+                
     
     //hook to update rows when prop is updated by parent- thanks, SO!
     const [rows, setRows] = useState(props.prop);
@@ -52,7 +59,7 @@ export default function SortableTable(props){
     }
 
     return (
-        <Paper key={rows[0].name}>
+        <TableContainer component={Paper} key={rows[0].name}>
             <Table size={isSmall?"small":"medium"}>
                 <TableHead>
                     <TableRow>
@@ -73,7 +80,7 @@ export default function SortableTable(props){
                         return(
                             <TableRow key={index}>
                                 <TableCell key={index.toString()+row.uniqueID+"1"} component="th" scope="row">{row.name}</TableCell>
-                                <TableCell key={index.toString()+row.uniqueID+"2"} align="left">{row.category}</TableCell>
+                                {!isSmall&&<TableCell key={index.toString()+row.uniqueID+"2"} align="left">{row.category}</TableCell>}
                                 <TableCell key={index.toString()+row.uniqueID+"3"} align="right">{row.price+"0 €"}</TableCell>
                                 <TableCell key={index.toString()+row.uniqueID+"4"} align="right">{row.kcal}</TableCell>
                                 <TableCell key={index.toString()+row.uniqueID+"5"} align="right">{row.protein}</TableCell>
@@ -83,7 +90,7 @@ export default function SortableTable(props){
                     )})}
                 </TableBody>
             </Table>
-        </Paper>
+        </TableContainer>
     )
 
 }
