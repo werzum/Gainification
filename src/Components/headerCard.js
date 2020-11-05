@@ -7,15 +7,17 @@ import { BarChart, Bar, Cell, XAxis, YAxis, ResponsiveContainer, Tooltip} from '
   
 
 
-const useStyles = makeStyles(theme => ({  card: {height: "auto"},
+const useStyles = makeStyles(theme => ({
+    card: {height: "auto"},
     expand: {    marginLeft: 'auto', align: "right", padding: 0 },
     CardContent: {padding: 0, paddingLeft: 16} ,
     SubMenu:{padding:0, display:"flex", paddingBottom: 10,flexGrow: 1},
     CardContentNoPadding:{padding:0,flexGrow: 1},
     large: {
         width: theme.spacing(7),
-        height: theme.spacing(7), margin: 12
-      }}));
+        height: theme.spacing(7), margin: 12}
+    }
+));
 
 function HeadCardPpE(props) {
     //use the styles created above

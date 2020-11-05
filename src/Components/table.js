@@ -6,6 +6,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 const comparator = (prop, desc = true) => (a, b) => {  const order = desc ? -1 : 1;
     if (a[prop] < b[prop]) {    return -1 * order;  }
@@ -14,14 +16,16 @@ const comparator = (prop, desc = true) => (a, b) => {  const order = desc ? -1 :
 
 
 export default function SortableTable(props){
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
     //only compare by absolute value since the name comparator doesnt like spaces and /,€ -> fix this maybe? 
     const [columns, setColumns] = useState([{name:"Name", active: false},
                                             {name:"Category", active:false},
                                             {name:"Price", active:false, numeric:true},
                                             {name:"Kcal", active:false, numeric:true},
-                                            {name:"Protein", active:false, numeric:true},
-                                            {name:"Fat", active:false, numeric:true},
-                                            {name:"Carbs", active:false, numeric:true}])
+                                            {name:"Protein(g)", active:false, numeric:true},
+                                            {name:"Fat(g)", active:false, numeric:true},
+                                            {name:"Carbs(g)", active:false, numeric:true}])
     
     //hook to update rows when prop is updated by parent- thanks, SO!
     const [rows, setRows] = useState(props.prop);
@@ -49,7 +53,7 @@ export default function SortableTable(props){
 
     return (
         <Paper key={rows[0].name}>
-            <Table dense="true">
+            <Table size={isSmall?"small":"medium"}>
                 <TableHead>
                     <TableRow>
                         {columns.map((column,index)=>{

@@ -1,19 +1,20 @@
-import {Select, FormControl, MenuItem} from '@material-ui/core';
+import {Select, MenuItem} from '@material-ui/core';
 import React from 'react';
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => 
-    ({  root: {    color: "white",
+    ({  root: {    color: "grey",
     '&:before': {
-        borderColor: "white",
+        borderColor: "grey",
     },
     '&:after': {
-        borderColor: "white",
+        borderColor: "grey",
     }}
      }))
 
 export default function LocationPicker(props){
-    const classes = useStyles()
+    const classes = useStyles();
+
 
     return(
         <React.Fragment>

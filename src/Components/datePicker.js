@@ -1,30 +1,39 @@
-import {Button, Typography} from '@material-ui/core';
+import {Button, Typography, Grid} from '@material-ui/core';
 import React from 'react';
-import {ArrowForward, ArrowBack} from "@material-ui/icons"
-import { makeStyles } from '@material-ui/styles'
+import {ArrowForward, ArrowBack} from "@material-ui/icons";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => 
-    ({  root: {    flexGrow: 1  }, 
-        flex: {    flex: 1  },
-        title:{letterSpacing:4, fontWeight:800},
-        caption: {alignContent: "end", flex:1, letterSpacing:9,fontWeight:700},
-        toolbarMargin: {minHeight:56},
+    ({ 
+        color:{color:"grey"}
      }))
 
 export default function DatePicker(props){
-    const classes = useStyles()
+    const classes = useStyles();
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
     return(
-        <React.Fragment>
+        <Grid container direction="row" alignItems="center" style={{minWidth:100}}>
+            <Grid item>
             <Button onClick={()=>props.previousDay(props.selectedDay)}>
                 <ArrowBack color={props.selectedDay===0? "disabled" : "inherit"}/>
             </Button>
-            <Typography>
-                {props.dateTime}
-            </Typography>
-            <Button onClick={()=>props.nextDay(props.selectedDay)}>
-                <ArrowForward color={props.selectedDay===6? "disabled" : "inherit"}/>
-            </Button>
-        </React.Fragment>
+            </Grid>
+            <Grid item>
+               <Typography className={classes.color}>
+                {isSmall? props.dateTime.replace(/[A-Za-z]/g,"").replace(",",""): props.dateTime}
+            </Typography> 
+            </Grid>
+            <Grid item>
+                <Button onClick={()=>props.nextDay(props.selectedDay)}>
+                    <ArrowForward color={props.selectedDay===6? "disabled" : "inherit"}/>
+                </Button>
+
+            </Grid>
+            
+        </Grid>
     )
 }

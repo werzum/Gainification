@@ -131,17 +131,18 @@ class App extends Component {
         <CssBaseline />
         <div className="App">
           <CustomAppBar darkMode={this.state.darkMode} toggleDarkMode={this.toggleDarkMode} selectedDay={this.state.selectedDay} selectedLocation={this.state.selectedLocation} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay} selectLocation={this.selectLocation} />
+            {/* eslint-disable-next-line react/jsx-no-duplicate-props */}
             <Grid container={true} spacing={2} style={{margin:5}} style={{width:"100%"}} >
-              <Grid item={true} xs={6} sm={6} md={3} key={"PpE"} >
+              <Grid item={true} xs={12} sm={6} md={3} key={"PpE"} >
                 <HeadCardPpE {...this.state.topCards[0]} subheadername={"Most Protein per Euro"} avatar={"P/€"}/>
               </Grid>
-              <Grid item={true} xs={6} sm={6} md={3} key={"protein"} >
+              <Grid item={true} xs={12} sm={6} md={3} key={"protein"} >
                 <HeadCardPpE {...this.state.topCards[1]} subheadername={"Most Protein"} avatar={"P"}/>
               </Grid>
-              <Grid item={true} xs={6} sm={6} md={3} key={"KcalE"} >
+              <Grid item={true} xs={12} sm={6} md={3} key={"KcalE"} >
                 <HeadCardPpE {...this.state.topCards[2]} subheadername={"Most Kcal per Euro"} avatar={"K/€"}/>
               </Grid>
-              <Grid item={true} xs={6} sm={6} md={3} key={"kcal"} >
+              <Grid item={true} xs={12} sm={6} md={3} key={"kcal"} >
                 <HeadCardPpE {...this.state.topCards[3]} subheadername={"Most Kcal"} avatar={"K"}/>
               </Grid>
             </Grid>
