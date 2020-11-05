@@ -70,4 +70,4 @@ app.get("/mealplans/suedpark",(req,res) => res.send(mensaJSON[6]));
 app.get("/mealplans/vita",(req,res) => res.send(mensaJSON[7]));
 app.get("/mealplans/juelicherstrasse",(req,res) => res.send(mensaJSON[8]));
 
-app.listen(process.env.port||5000,() => console.log(`running on ${process.env.port}`));
+app.listen(process.env.PORT||5000,() => console.log(`running on ${process.env.port}`));
