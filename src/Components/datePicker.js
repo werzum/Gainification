@@ -4,7 +4,6 @@ import {ArrowForward, ArrowBack} from "@material-ui/icons";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
-
 export default function DatePicker(props){
 
     const theme = useTheme();
@@ -12,7 +11,7 @@ export default function DatePicker(props){
 
     return(
         <Grid container direction="row" alignItems="center" style={{minWidth:100}}>
-            <Grid item style={{marginLeft:-20}}>
+            <Grid item style={{marginLeft:-10}}>
             <Button onClick={()=>props.previousDay(props.selectedDay)}>
                 <ArrowBack color={props.selectedDay===0? "disabled" : "inherit"}/>
             </Button>

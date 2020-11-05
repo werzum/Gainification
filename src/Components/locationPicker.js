@@ -1,10 +1,21 @@
 import {Select, MenuItem} from '@material-ui/core';
 import React from 'react';
+import { makeStyles } from '@material-ui/styles';
+
+const useStyles = makeStyles(theme => 
+    ({  select: {color:"inherit", borderColor: "inherit",'&:before': {
+        borderColor: "inherit",
+    },
+    '&:after': {
+        borderColor: "inherit",
+    }}
+     }))
 
 export default function LocationPicker(props){
+    const classes = useStyles()
     return(
         <React.Fragment>
-                <Select
+                <Select className={classes.select}
                 key={props.selectedLocation}
                 value={props.selectedLocation}
                 onChange={(event)=>props.selectLocation(event.target.value)}

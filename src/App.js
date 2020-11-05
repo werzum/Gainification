@@ -5,12 +5,11 @@ import FetchDishes from "./FetchDishes";
 import SortableTable from "./Components/table.js"
 import {Grid,Snackbar,CssBaseline } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import HttpsRedirect from 'react-https-redirect';
 
 //TODO
 //service worker
-//testing on mobile
 //Improve created strings since they stink. Preis ohne Pfand and proper names need to be fixed
-//improve UI
 
 class App extends Component {
   constructor(props) {
@@ -126,7 +125,23 @@ class App extends Component {
       }
     });
 
+  window.addEventListener('fetch', function(event) {
+    console.log("attempted to fetch stuff")
+    event.respondWith(
+      caches.open('your-app').then(function(cache) {
+        return cache.match(event.request).then(function (response) {
+          return response || fetch(event.request).then(function(response) {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        });
+      })
+    );
+  });
+    
+
     return(
+      <HttpsRedirect>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="App">
@@ -155,6 +170,7 @@ class App extends Component {
             />
         </div>
       </ThemeProvider>
+      </HttpsRedirect>
     )
   }
 }

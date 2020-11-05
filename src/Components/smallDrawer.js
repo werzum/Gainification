@@ -35,12 +35,6 @@ export default function SmallDrawer(props){
     const drawer = (
       <React.Fragment>
           <List>
-            {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <ArrowDropUp /> : <ArrowDropUp />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))} */}
              <ListItem>
                 <ListItemAvatar>
                 <Avatar>
