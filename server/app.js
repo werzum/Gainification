@@ -5,6 +5,7 @@ const jsdom = require("jsdom");
 const axios = require("axios");
 const domExtracter = require("./domExtracter")
 const domExtract = domExtracter.domExtract;
+const schedule = require("node-schedule")
 
 const buildPath = path.join(__dirname, '..', 'build');
 app.use(express.static(buildPath));
@@ -43,21 +44,27 @@ function parseData(mensaDOM){
     domExtract(dom, weekDayList, daysOfTheWeek);
     return weekDayList;
 };
-const mensaJSON = [];
-const mensaData = [];
-//fetch the mensaData
-getMensaData(mensaUrls).then(()=>{
-    //and create a JSON for each Mensa location
-    for (const entry of mensaData){
-        //skip totally or partially empty meal plans
-        if(entry.data === undefined || entry.data.length <4000){
-            console.log("undef dom, skipping empty speiseplan")
-            mensaJSON.push({"message":404})
-            continue;
+let mensaJSON;
+let mensaData;
+
+let scheduledJob = schedule.scheduleJob("0 1 * * *", function(){
+    mensaJSON = [];
+    mensaData = [];
+    console.log("executed function")
+    //fetch the mensaData
+    getMensaData(mensaUrls).then(()=>{
+        //and create a JSON for each Mensa location
+        for (const entry of mensaData){
+            //skip totally or partially empty meal plans
+            if(entry.data === undefined || entry.data.length <4000){
+                mensaJSON.push({"message":404})
+                continue;
+            }
+            mensaJSON.push(parseData(entry));
         }
-        mensaJSON.push(parseData(entry));
-    }
-})
+    })
+
+});
 
 //provide the locations via different routes
 app.get("/mealplans/academica",(req,res) => res.send(mensaJSON[0]));

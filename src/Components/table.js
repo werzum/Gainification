@@ -59,7 +59,7 @@ export default function SortableTable(props){
     }
 
     return (
-        <TableContainer component={Paper} key={rows[0].name}>
+        <TableContainer component={Paper} key={rows[0].name} style={{marginTop:12}}>
             <Table size={isSmall?"small":"medium"}>
                 <TableHead>
                     <TableRow>

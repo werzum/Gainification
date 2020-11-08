@@ -3,12 +3,11 @@ import HeadCardPpE from "./Components/headerCard.js"
 import CustomAppBar from "./Components/appBar.js"
 import FetchDishes from "./FetchDishes";
 import SortableTable from "./Components/table.js"
-import {Grid,Snackbar,CssBaseline } from "@material-ui/core";
+import {Grid,Snackbar,CssBaseline, Typography } from "@material-ui/core";
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import HttpsRedirect from 'react-https-redirect';
 
 //TODO
-//service worker
 //Improve created strings since they stink. Preis ohne Pfand and proper names need to be fixed
 
 class App extends Component {
@@ -147,7 +146,7 @@ class App extends Component {
         <div className="App">
           <CustomAppBar darkMode={this.state.darkMode} toggleDarkMode={this.toggleDarkMode} selectedDay={this.state.selectedDay} selectedLocation={this.state.selectedLocation} dateTime={this.state.weekDays[this.state.selectedDay].dateTime} nextDay={this.nextDay} previousDay={this.previousDay} selectLocation={this.selectLocation} />
             {/* eslint-disable-next-line react/jsx-no-duplicate-props */}
-            <Grid container={true} spacing={2} style={{margin:5}} style={{width:"100%"}} >
+            <Grid container={true} spacing={2} style={{margin:0,width:"100%"}} >
               <Grid item={true} xs={12} sm={6} md={3} key={"PpE"} >
                 <HeadCardPpE {...this.state.topCards[0]} subheadername={"Most Protein per Euro"} avatar={"P/€"}/>
               </Grid>
@@ -161,6 +160,7 @@ class App extends Component {
                 <HeadCardPpE {...this.state.topCards[3]} subheadername={"Most Kcal"} avatar={"K"}/>
               </Grid>
             </Grid>
+            <Typography style={{margin:10}}>Table of all Dishes</Typography>
             <SortableTable prop={this.state.weekDays[this.state.selectedDay].mealList}/>
             <Snackbar
               message={"No meal plan provided"}

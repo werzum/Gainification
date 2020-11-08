@@ -11,7 +11,7 @@ export default function DatePicker(props){
 
     return(
         <Grid container direction="row" alignItems="center" style={{minWidth:100}}>
-            <Grid item style={{marginLeft:-10}}>
+            <Grid item style={isSmall?{marginLeft:-10}:{marginLeft:0}}>
             <Button onClick={()=>props.previousDay(props.selectedDay)}>
                 <ArrowBack color={props.selectedDay===0? "disabled" : "inherit"}/>
             </Button>
