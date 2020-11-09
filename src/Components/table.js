@@ -25,9 +25,9 @@ export default function SortableTable(props){
                                             !isSmall&&{name:"Category", active:false},
                                             {name:"Price", active:false, numeric:true},
                                             {name:"Kcal", active:false, numeric:true},
-                                            {name:"Protein(g)", active:false, numeric:true},
-                                            {name:"Fat(g)", active:false, numeric:true},
-                                            {name:"Carbs(g)", active:false, numeric:true}])
+                                            {name:"Protein", active:false, numeric:true},
+                                            {name:"Fat", active:false, numeric:true},
+                                            {name:"Carbs", active:false, numeric:true}])
 
     if(isSmall){
         columns=columns.filter((elm)=>elm.name!=="Category");

@@ -8,7 +8,7 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import HttpsRedirect from 'react-https-redirect';
 
 //TODO
-//Improve created strings since they stink. Preis ohne Pfand and proper names need to be fixed
+//Improve created strings, proper names need to be fixed
 
 class App extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class App extends Component {
         return;
       }
 
-      for(let i=1;i<res.length;i++){
+      for(let i=0;i<res.length;i++){
         let dayData = {dateTime:"",mealList:[]};
         dayData.dateTime = res[i].dateTime;
         dayData.mealList = [];
@@ -62,26 +62,27 @@ class App extends Component {
   //compute the prominent top cards
   computeTopCards(selectedDay){
     let cards = this.state.weekDays[selectedDay].mealList;
-    let newTopCards = this.state.topCards;
+    let newTopCards = [];
+
     //for each entry of todays list, check whether it is higher than the rest and belongs to the topcards. Break if found
     for (const entry of cards){
       if(cards.every((value => (value.PpE <= entry.PpE)),entry)){
-        newTopCards[0] = entry;
+        newTopCards.push(entry);
         continue;
     }};
     for (const entry of cards){
       if(cards.every((value => (value.protein <= entry.protein)),entry)){
-        newTopCards[1] = entry;
+        newTopCards.push(entry);
         continue;
     }};
     for (const entry of cards){
       if(cards.every((value => (value.KcalpE <= entry.KcalpE)),entry)){
-        newTopCards[2] = entry;
+        newTopCards.push(entry);
         continue;
     }};
     for (const entry of cards){
       if(cards.every((value => (value.kcal <= entry.kcal)),entry)){
-        newTopCards[3] = entry;
+        newTopCards.push(entry);
         continue;
     }};
     this.setState({topCards:newTopCards});
@@ -96,15 +97,16 @@ class App extends Component {
   nextDay(newSelectedDay){
     if(newSelectedDay<6){
       newSelectedDay++;
+      this.computeTopCards(newSelectedDay);
+      this.setState({selectedDay:newSelectedDay})
     }
-    this.setState({selectedDay:newSelectedDay})
-    this.computeTopCards(this.state.selectedDay);
   }
   previousDay(newSelectedDay){
     if (newSelectedDay>0) {
-      newSelectedDay--;}
-    this.setState({selectedDay:newSelectedDay});
-    this.computeTopCards(this.state.selectedDay);
+      newSelectedDay--;
+      this.computeTopCards(newSelectedDay);
+      this.setState({selectedDay:newSelectedDay});
+    }
   }
 
   //pass this to the locationPicker component to change the selected day and call the API accordingly
@@ -123,22 +125,7 @@ class App extends Component {
         type: this.state.darkMode? "dark" : "light"
       }
     });
-
-  window.addEventListener('fetch', function(event) {
-    console.log("attempted to fetch stuff")
-    event.respondWith(
-      caches.open('your-app').then(function(cache) {
-        return cache.match(event.request).then(function (response) {
-          return response || fetch(event.request).then(function(response) {
-            cache.put(event.request, response.clone());
-            return response;
-          });
-        });
-      })
-    );
-  });
     
-
     return(
       <HttpsRedirect>
       <ThemeProvider theme={theme}>
