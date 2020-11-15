@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     }
 ));
 
-function HeadCardPpE(props) {
+const HeadCardComponent = React.memo(function HeadCardPpE(props) {
     //use the styles created above
     const classes = useStyles()
     //hooks for hovering effect and expanding cards
@@ -82,6 +82,6 @@ function HeadCardPpE(props) {
         </CardContent>
     </Card>
     )
-  }
+  });
   
-export default HeadCardPpE;
+export default HeadCardComponent;

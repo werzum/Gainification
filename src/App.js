@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import HeadCardPpE from "./Components/headerCard.js"
+import HeadCardComponent from "./Components/headerCard.js"
 import CustomAppBar from "./Components/appBar.js"
 import FetchDishes from "./FetchDishes";
 import SortableTable from "./Components/table.js"
@@ -135,16 +135,16 @@ class App extends Component {
             {/* eslint-disable-next-line react/jsx-no-duplicate-props */}
             <Grid container={true} spacing={2} style={{margin:0,width:"100%"}} >
               <Grid item={true} xs={12} sm={6} md={3} key={"PpE"} >
-                <HeadCardPpE {...this.state.topCards[0]} subheadername={"Most Protein per Euro"} avatar={"P/€"}/>
+                <HeadCardComponent {...this.state.topCards[0]} subheadername={"Most Protein per Euro"} avatar={"P/€"}/>
               </Grid>
               <Grid item={true} xs={12} sm={6} md={3} key={"protein"} >
-                <HeadCardPpE {...this.state.topCards[1]} subheadername={"Most Protein"} avatar={"P"}/>
+                <HeadCardComponent {...this.state.topCards[1]} subheadername={"Most Protein"} avatar={"P"}/>
               </Grid>
               <Grid item={true} xs={12} sm={6} md={3} key={"KcalE"} >
-                <HeadCardPpE {...this.state.topCards[2]} subheadername={"Most Kcal per Euro"} avatar={"K/€"}/>
+                <HeadCardComponent {...this.state.topCards[2]} subheadername={"Most Kcal per Euro"} avatar={"K/€"}/>
               </Grid>
               <Grid item={true} xs={12} sm={6} md={3} key={"kcal"} >
-                <HeadCardPpE {...this.state.topCards[3]} subheadername={"Most Kcal"} avatar={"K"}/>
+                <HeadCardComponent {...this.state.topCards[3]} subheadername={"Most Kcal"} avatar={"K"}/>
               </Grid>
             </Grid>
             <Typography style={{margin:10}}>Table of all Dishes</Typography>

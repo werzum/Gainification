@@ -31,12 +31,6 @@ export default function CustomDrawer(props){
     const drawer = (
       <React.Fragment>
           <List>
-            {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <ArrowDropUp /> : <ArrowDropUp />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))} */}
             <DarkToggle darkMode={props.darkMode} toggleDarkMode={props.toggleDarkMode}/>
           </List>
           <Card className={classes.card}>
