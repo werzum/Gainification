@@ -8,9 +8,11 @@ const domExtract = domExtracter.domExtract;
 const schedule = require("node-schedule");
 const compression = require('compression');
 
+app.use(compression());
+
 const buildPath = path.join(__dirname, '..', 'build');
 app.use(express.static(buildPath));
-app.use(compression());
+
 
 const mensaUrls = {
     "Mensa Academica" : "https://www.studierendenwerk-aachen.de/speiseplaene/academica-w.html",
